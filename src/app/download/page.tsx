@@ -23,9 +23,9 @@ export default function DownloadPage() {
       <div className="flex flex-col gap-4">
         <a 
           href="https://store.steampowered.com/app/613900/Museum_of_Other_Realities/"
-          className="px-8 py-4 bg-[#66c0f4] text-black font-bold text-lg rounded hover:bg-white transition-colors flex items-center justify-center gap-3"
+          className="px-8 py-4 bg-[#66c0f4] text-black font-bold text-lg rounded-full hover:bg-white transition-colors flex items-center justify-center gap-3"
         >
-          <span>Continue to Steam</span>
+          <span>Visit on Steam</span>
         </a>
         
         <Link href="/" className="text-sm text-gray-500 hover:text-white mt-4 underline">

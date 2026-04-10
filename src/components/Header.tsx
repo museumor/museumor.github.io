@@ -17,34 +17,44 @@ export default function Header() {
 
   return (
     <header 
-      className={`fixed top-0 z-50 w-full transition-all duration-300 border-b border-white/10 ${
-        isScrolled ? 'bg-black/90 backdrop-blur-md py-2' : 'bg-transparent py-4'
-      } hover:bg-black group`}
+      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
+        isScrolled
+          ? 'border-b border-white/10 bg-black/80 py-3 backdrop-blur-xl'
+          : 'border-b border-white/8 bg-gradient-to-b from-black/88 via-black/78 to-black/72 py-4 backdrop-blur-md'
+      }`}
     >
-      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
-          <SafeImage 
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
+        <Link href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
+          <SafeImage
             src="/images/logo/MOR_Logomark-forweb_white.png" 
             alt="Museum of Other Realities" 
             className="h-8 w-auto"
+            loading="eager"
           />
+          <div className="hidden sm:block">
+            <div className="text-xs uppercase tracking-[0.32em] text-white/50">Museum of</div>
+            <div className="text-sm font-medium tracking-[0.24em] text-white">Other Realities</div>
+          </div>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8 text-sm">
-          <Link href="/about" className="text-white/80 hover:text-white transition-colors">About</Link>
-          <Link href="/host-an-event" className="text-white/80 hover:text-white transition-colors">Host an Event</Link>
-          <Link href="/blog" className="text-white/80 hover:text-white transition-colors">Blog</Link>
-          <Link href="/artists" className="text-white/80 hover:text-white transition-colors">Artists</Link>
-          <Link href="/collection" className="text-white/80 hover:text-white transition-colors">Collection</Link>
-          <Link href="/download" className="text-white/80 hover:text-white transition-colors">Download</Link>
+        <nav className="hidden items-center gap-7 text-sm md:flex">
+          <Link href="/#visit" className="text-white/70 transition-colors hover:text-white">Visit</Link>
+          <Link href="/#artists" className="text-white/70 transition-colors hover:text-white">Artists</Link>
+          <Link href="/#exhibitions" className="text-white/70 transition-colors hover:text-white">Exhibitions</Link>
+          <Link href="/collection" className="text-white/70 transition-colors hover:text-white">Collection</Link>
+          <Link href="/blog" className="text-white/70 transition-colors hover:text-white">Blog</Link>
         </nav>
 
-        <Link
-          href="/download"
-          className="md:hidden inline-flex items-center gap-2 px-4 py-2 bg-white text-black text-sm font-medium rounded-sm hover:bg-gray-200 transition-colors"
-        >
-          Download
-        </Link>
+        <div className="flex items-center gap-3">
+          <a
+            href="https://store.steampowered.com/app/613900/Museum_of_Other_Realities/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white px-4 py-2 text-sm font-medium text-black transition-transform hover:-translate-y-0.5 hover:bg-white/90"
+          >
+            Visit Free
+          </a>
+        </div>
       </div>
     </header>
   );

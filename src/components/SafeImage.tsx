@@ -7,7 +7,7 @@ interface SafeImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   fallbackSrc?: string;
 }
 
-export default function SafeImage({ src, fallbackSrc, className, ...props }: SafeImageProps) {
+export default function SafeImage({ src, fallbackSrc, className, alt = "", loading, decoding, ...props }: SafeImageProps) {
   const [hasError, setHasError] = useState(false);
   
   let finalSrc = src;
@@ -26,6 +26,9 @@ export default function SafeImage({ src, fallbackSrc, className, ...props }: Saf
         <img
           src={fallbackSrc}
           className={className}
+          alt={alt}
+          loading={loading ?? "lazy"}
+          decoding={decoding ?? "async"}
           {...props}
           onError={(e) => { e.currentTarget.style.display = 'none'; }} 
         />
@@ -38,6 +41,9 @@ export default function SafeImage({ src, fallbackSrc, className, ...props }: Saf
     <img
       src={finalSrc}
       className={className}
+      alt={alt}
+      loading={loading ?? "lazy"}
+      decoding={decoding ?? "async"}
       {...props}
       onError={() => setHasError(true)}
     />

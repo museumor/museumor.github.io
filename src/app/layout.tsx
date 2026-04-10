@@ -17,8 +17,12 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Museum of Other Realities",
-  description: "An immersive multiplayer art showcase in VR.",
+  metadataBase: new URL("https://museumor.com"),
+  title: {
+    default: "Museum of Other Realities",
+    template: "%s | Museum of Other Realities",
+  },
+  description: "A free social VR museum for immersive art, evolving exhibitions, and shared experiences with artists and friends.",
   icons: {
     icon: "/favicon.png",
   },

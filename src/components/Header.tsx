@@ -39,7 +39,7 @@ export default function Header() {
 
         <nav className="hidden items-center gap-6 text-sm md:flex">
           <Link href="/#visit" className="text-white/70 transition-colors hover:text-white">Visit</Link>
-          <Link href="/#artists" className="text-white/70 transition-colors hover:text-white">Artists</Link>
+          <Link href="/artists" className="text-white/70 transition-colors hover:text-white">Artists</Link>
           <Link href="/#exhibitions" className="text-white/70 transition-colors hover:text-white">Exhibitions</Link>
           <Link href="/collection" className="text-white/70 transition-colors hover:text-white">Collection</Link>
           <Link href="/blog" className="text-white/70 transition-colors hover:text-white">Blog</Link>

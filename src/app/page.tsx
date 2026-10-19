@@ -232,64 +232,10 @@ export default function Home() {
               </Link>
             </div>
           </div>
-
-          <div className="mt-16 grid gap-4 md:grid-cols-3">
-            <div className="rounded-[2rem] border border-white/10 bg-black/35 p-5 backdrop-blur-md">
-              <p className="text-xs uppercase tracking-[0.28em] text-white/45">Open Access</p>
-              <p className="mt-3 text-sm leading-7 text-white/75">
-                The paywall is gone, opening the museum to more visitors thanks to early supporters and the community that helped build it.
-              </p>
-            </div>
-            <div className="rounded-[2rem] border border-white/10 bg-black/35 p-5 backdrop-blur-md">
-              <p className="text-xs uppercase tracking-[0.28em] text-white/45">Social VR</p>
-              <p className="mt-3 text-sm leading-7 text-white/75">
-                Wander the museum together, meet artists, and treat immersive art like a shared event rather than a static gallery wall.
-              </p>
-            </div>
-            <div className="rounded-[2rem] border border-white/10 bg-black/35 p-5 backdrop-blur-md">
-              <p className="text-xs uppercase tracking-[0.28em] text-white/45">Evolving Program</p>
-              <p className="mt-3 text-sm leading-7 text-white/75">
-                Festival collaborations, artist spotlights, and regularly refreshed exhibitions keep the museum alive.
-              </p>
-            </div>
-          </div>
         </div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-7xl px-6 py-24">
-        <div className="grid gap-10 lg:grid-cols-[1.25fr_0.9fr] lg:items-end">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-white/45">Why MOR Matters</p>
-            <p className="mt-5 max-w-4xl text-2xl font-light leading-[1.45] text-white/88 md:text-[2rem]">
-              MOR gives immersive art the kind of stage it deserves: not a menu of thumbnails, but a place where scale,
-              sound, architecture, and community can all work together.
-            </p>
-          </div>
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-7">
-            <p className="text-sm leading-8 text-white/68">
-              A community of creators, explorers, and artists, the museum connects people through new media from all over
-              the world. It is part exhibition space, part social venue, and part argument for what VR art can become.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-6 pb-12">
-        <div className="grid gap-5 md:grid-cols-3">
-          {pillars.map((pillar) => (
-            <div
-              key={pillar.title}
-              className="rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-7 shadow-[0_24px_80px_rgba(0,0,0,0.28)]"
-            >
-              <p className="text-xs uppercase tracking-[0.28em] text-white/40">Pillar</p>
-              <h2 className="mt-5 text-2xl font-medium text-white">{pillar.title}</h2>
-              <p className="mt-4 text-sm leading-7 text-white/68">{pillar.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="exhibitions" className="mx-auto max-w-7xl px-6 py-24">
+      <section id="exhibitions" className="mx-auto max-w-7xl px-6 pt-24 pb-10">
         <div className="mb-12 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-3xl">
             <p className="text-xs uppercase tracking-[0.3em] text-white/45">Living Exhibitions</p>
@@ -323,6 +269,29 @@ export default function Home() {
               </div>
             </a>
           ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 pb-8">
+        <div className="grid gap-4 md:grid-cols-3">
+          <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
+            <p className="text-xs uppercase tracking-[0.28em] text-white/45">Open Access</p>
+            <p className="mt-3 text-sm leading-7 text-white/75">
+              The paywall is gone, opening the museum to more visitors thanks to early supporters and the community that helped build it.
+            </p>
+          </div>
+          <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
+            <p className="text-xs uppercase tracking-[0.28em] text-white/45">Social VR</p>
+            <p className="mt-3 text-sm leading-7 text-white/75">
+              Wander the museum together, meet artists, and treat immersive art like a shared event rather than a static gallery wall.
+            </p>
+          </div>
+          <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
+            <p className="text-xs uppercase tracking-[0.28em] text-white/45">Evolving Program</p>
+            <p className="mt-3 text-sm leading-7 text-white/75">
+              Festival collaborations, artist spotlights, and regularly refreshed exhibitions keep the museum alive.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -376,6 +345,39 @@ export default function Home() {
               <p className="text-lg font-light leading-8 text-white/88">&ldquo;{quote.quote}&rdquo;</p>
               <footer className="mt-6 text-xs uppercase tracking-[0.22em] text-white/45">{quote.source}</footer>
             </blockquote>
+          ))}
+        </div>
+      </section>
+
+      <section className="relative z-10 mx-auto max-w-7xl px-6 py-24">
+        <div className="grid gap-10 lg:grid-cols-[1.25fr_0.9fr] lg:items-end">
+          <div>
+            <p className="text-xs uppercase tracking-[0.3em] text-white/45">Why MOR Matters</p>
+            <p className="mt-5 max-w-4xl text-2xl font-light leading-[1.45] text-white/88 md:text-[2rem]">
+              MOR gives immersive art the kind of stage it deserves: not a menu of thumbnails, but a place where scale,
+              sound, architecture, and community can all work together.
+            </p>
+          </div>
+          <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-7">
+            <p className="text-sm leading-8 text-white/68">
+              A community of creators, explorers, and artists, the museum connects people through new media from all over
+              the world. It is part exhibition space, part social venue, and part argument for what VR art can become.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 pb-12">
+        <div className="grid gap-5 md:grid-cols-3">
+          {pillars.map((pillar) => (
+            <div
+              key={pillar.title}
+              className="rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-7 shadow-[0_24px_80px_rgba(0,0,0,0.28)]"
+            >
+              <p className="text-xs uppercase tracking-[0.28em] text-white/40">Pillar</p>
+              <h2 className="mt-5 text-2xl font-medium text-white">{pillar.title}</h2>
+              <p className="mt-4 text-sm leading-7 text-white/68">{pillar.description}</p>
+            </div>
           ))}
         </div>
       </section>

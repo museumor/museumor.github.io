@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import LoopVideo from "@/components/LoopVideo";
 import SafeImage from "@/components/SafeImage";
 import { blogPosts } from "@/data/blog";
 
@@ -29,7 +30,7 @@ const featuredWorks = [
     title: "Night Snow",
     artist: "Dani Bittman",
     description: "Glowing architecture suspended somewhere between memory, weather, and teleportation.",
-    image: "/images/gifs/bittman-night-snow-teleport.gif",
+    video: "/images/gifs/bittman-night-snow-teleport.mp4",
     href: "/artists",
     span: "lg:col-span-7",
   },
@@ -37,7 +38,7 @@ const featuredWorks = [
     title: "Immateria",
     artist: "Isaac Cohen",
     description: "Shape-shifting matter and impossible bodies that feel native to VR.",
-    image: "/images/gifs/cabbibo-immateria.gif",
+    video: "/images/gifs/cabbibo-immateria.mp4",
     href: "/collection",
     span: "lg:col-span-5",
   },
@@ -45,7 +46,7 @@ const featuredWorks = [
     title: "Terrarium",
     artist: "Durk van der Meer",
     description: "A chamber-sized ecosystem where scale, architecture, and atmosphere all drift out of the ordinary.",
-    image: "/images/gifs/vandermeer-terrarium.gif",
+    video: "/images/gifs/vandermeer-terrarium.mp4",
     href: "/collection",
     span: "lg:col-span-4",
   },
@@ -53,7 +54,7 @@ const featuredWorks = [
     title: "Alex's Sci-Fi World",
     artist: "Nick Ladd",
     description: "Hand-drawn world-building that turns animated illustration into someplace you can inhabit.",
-    image: "/images/gifs/ladd-alexs-scifi-world.gif",
+    video: "/images/gifs/ladd-alexs-scifi-world.mp4",
     href: "/artists",
     span: "lg:col-span-4",
   },
@@ -61,7 +62,7 @@ const featuredWorks = [
     title: "Blortasia",
     artist: "Kevin Mack",
     description: "Abstract VR sculpture and color fields with the scale and strangeness of a lucid dream.",
-    image: "/images/gifs/kevin-mac-art-blort.gif",
+    video: "/images/gifs/kevin-mac-art-blort.mp4",
     href: "/collection",
     span: "lg:col-span-4",
   },
@@ -71,32 +72,32 @@ const featuredArtists = [
   {
     name: "Dani Bittman",
     role: "Immersive design for Marvel, Google, Hyundai, and more",
-    image: "/images/gifs/bittman-night-snow.gif",
+    video: "/images/gifs/bittman-night-snow.mp4",
   },
   {
     name: "Isaac Cohen",
     role: "VR artist exploring new paradigms for embodied experience",
-    image: "/images/gifs/cabbibo-fish.gif",
+    video: "/images/gifs/cabbibo-fish.mp4",
   },
   {
     name: "Ana Duncan",
     role: "Fashion-forward world building shaped by retro sci-fi and illustration",
-    image: "/images/gifs/tilt-couture.gif",
+    video: "/images/gifs/tilt-couture.mp4",
   },
   {
     name: "Sutu",
     role: "Interactive comics, animation, and VR storytelling with kinetic motion",
-    image: "/images/gifs/sutu-equinoxe-zoom.gif",
+    video: "/images/gifs/sutu-equinoxe-zoom.mp4",
   },
   {
     name: "Kris Pilcher",
     role: "Installation-scale XR work that pushes color, space, and spectacle",
-    image: "/images/gifs/tesseract.gif",
+    video: "/images/gifs/tesseract.mp4",
   },
   {
     name: "Sean Tann",
     role: "Chromatic environments built for wonder and spatial play",
-    image: "/images/gifs/sean-tann-chromawave-better.gif",
+    video: "/images/gifs/sean-tann-chromawave-better.mp4",
   },
 ];
 
@@ -305,8 +306,8 @@ export default function Home() {
               className={`group relative overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950 ${work.span}`}
             >
               <div className={`relative ${index === 0 ? "aspect-[16/11]" : "aspect-[4/3]"} overflow-hidden`}>
-                <SafeImage
-                  src={work.image}
+                <LoopVideo
+                  src={work.video}
                   alt={`${work.title} by ${work.artist}`}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -344,8 +345,8 @@ export default function Home() {
               className="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.03]"
             >
               <div className="aspect-[5/4] overflow-hidden">
-                <SafeImage
-                  src={artist.image}
+                <LoopVideo
+                  src={artist.video}
                   alt={artist.name}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />

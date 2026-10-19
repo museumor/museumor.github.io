@@ -8,24 +8,6 @@ import { blogPosts } from "@/data/blog";
 const steamUrl = "https://store.steampowered.com/app/613900/Museum_of_Other_Realities/";
 const trailerUrl = "https://www.youtube.com/watch?v=zUtqvp1LIcM";
 
-const pillars = [
-  {
-    title: "Shared Presence",
-    description:
-      "Walk the museum together, meet people inside the work, and experience immersive art as a social ritual instead of a solitary scroll.",
-  },
-  {
-    title: "Living Exhibitions",
-    description:
-      "MOR evolves through new rooms, special events, festival partnerships, and artist releases that reward coming back.",
-  },
-  {
-    title: "Artist Support",
-    description:
-      "The museum pays and promotes featured artists while giving experimental VR work a stage built for wonder instead of compromise.",
-  },
-];
-
 const featuredWorks = [
   {
     title: "Night Snow",
@@ -183,7 +165,7 @@ export default function Home() {
         <div className="absolute right-[-8rem] top-[62rem] h-[24rem] w-[24rem] rounded-full bg-white/5 blur-[160px]" />
       </div>
 
-      <section className="relative -mt-16 flex min-h-[82vh] w-full items-center justify-center overflow-hidden bg-black" id="visit">
+      <section className="relative -mt-16 flex min-h-[65vh] w-full items-center justify-center overflow-hidden bg-black" id="visit">
         <div className="absolute inset-0 z-0">
           <SafeImage
             src="/images/home/Hero-NightSnow.jpg"
@@ -195,7 +177,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.14),transparent_34%)]" />
         </div>
 
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col px-6 pb-20 pt-36 md:pt-40">
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col px-6 pb-14 pt-32 md:pt-36">
           <div className="max-w-4xl">
             <h1 className="max-w-3xl text-4xl font-light leading-[0.95] tracking-tight text-white sm:text-5xl lg:text-7xl">
               Museum of
@@ -226,7 +208,7 @@ export default function Home() {
               </a>
               <Link
                 href="/#artists"
-                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-white/12 bg-white/5 px-7 text-sm font-medium text-white/80 transition-colors hover:border-white/25 hover:text-white sm:min-w-[210px]"
+                className="hidden min-h-14 sm:inline-flex items-center justify-center gap-2 rounded-full border border-white/12 bg-white/5 px-7 text-sm font-medium text-white/80 transition-colors hover:border-white/25 hover:text-white sm:min-w-[210px]"
               >
                 Explore Artists
               </Link>
@@ -235,15 +217,15 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="exhibitions" className="mx-auto max-w-7xl px-6 pt-24 pb-10">
+      <section id="exhibitions" className="mx-auto max-w-7xl px-6 pt-16 pb-10">
         <div className="mb-12 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-3xl">
             <p className="text-xs uppercase tracking-[0.3em] text-white/45">Living Exhibitions</p>
             <h2 className="mt-4 text-3xl font-medium text-white md:text-5xl">A museum built for motion, scale, and surprise</h2>
           </div>
           <p className="max-w-xl text-sm leading-7 text-white/65">
-            Instead of a flat artist grid, this front page treats the work itself as the invitation. The motion below is
-            sourced from the pieces and keeps the site closer to the feeling of entering MOR.
+            Every piece in MOR is a space you can walk into, at a scale no screen can hold. Here are a few of the worlds
+            waiting inside.
           </p>
         </div>
 
@@ -362,23 +344,9 @@ export default function Home() {
             <p className="text-sm leading-8 text-white/68">
               A community of creators, explorers, and artists, the museum connects people through new media from all over
               the world. It is part exhibition space, part social venue, and part argument for what VR art can become.
+              The museum pays and promotes the artists it features.
             </p>
           </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-6 pb-12">
-        <div className="grid gap-5 md:grid-cols-3">
-          {pillars.map((pillar) => (
-            <div
-              key={pillar.title}
-              className="rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-7 shadow-[0_24px_80px_rgba(0,0,0,0.28)]"
-            >
-              <p className="text-xs uppercase tracking-[0.28em] text-white/40">Pillar</p>
-              <h2 className="mt-5 text-2xl font-medium text-white">{pillar.title}</h2>
-              <p className="mt-4 text-sm leading-7 text-white/68">{pillar.description}</p>
-            </div>
-          ))}
         </div>
       </section>
 
@@ -398,8 +366,9 @@ export default function Home() {
               Patrons fund access for everyone.
             </h2>
             <p className="mt-5 text-sm leading-7 text-white/70">
-              Patreon helps cover the fixed costs behind an open museum: multiplayer servers, Unity updates, Steam hosting,
-              archiving, and the care needed to keep VR art available without a ticket at the door.
+              The paywall is gone, and MOR stays open thanks to the people who supported it early. Patreon covers the
+              fixed costs behind an open museum: multiplayer servers, Unity updates, Steam hosting, archiving, and the
+              care needed to keep VR art available without a ticket at the door.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
@@ -431,24 +400,6 @@ export default function Home() {
               className={`${partner.className} w-auto opacity-70 transition-opacity hover:opacity-100`}
             />
           ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-6 py-10">
-        <div className="flex flex-col gap-6 rounded-[2rem] border border-white/10 bg-gradient-to-r from-white/[0.06] via-red-900/10 to-white/[0.03] p-8 md:flex-row md:items-center md:justify-between">
-          <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.3em] text-white/45">Free Story</p>
-            <h2 className="mt-3 text-2xl font-medium text-white">Paywall removed. The museum is now open to more people.</h2>
-            <p className="mt-4 text-sm leading-7 text-white/70">
-              MOR stays open today thanks to the people who supported it early and the artists who gave it a reason to exist.
-            </p>
-          </div>
-          <Link
-            href="/blog/the-museum-of-other-realities-is-free-to-visit"
-            className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/15 bg-black/25 px-6 text-sm font-medium text-white transition-colors hover:bg-black/40"
-          >
-            Read the Story
-          </Link>
         </div>
       </section>
 

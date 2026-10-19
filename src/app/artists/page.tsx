@@ -1,5 +1,14 @@
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { artists } from "@/data/artists";
 import SafeImage from "@/components/SafeImage";
+
+export const metadata: Metadata = pageMetadata({
+  title: "Artists",
+  description:
+    "Meet the illustrators, animators, and engineers pushing the boundaries of interactive art and new media in the MOR.",
+  path: "/artists/",
+});
 
 export default function ArtistsPage() {
   return (

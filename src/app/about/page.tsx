@@ -1,5 +1,14 @@
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { team } from "@/data/team";
 import SafeImage from "@/components/SafeImage";
+
+export const metadata: Metadata = pageMetadata({
+  title: "About",
+  description:
+    "What the Museum of Other Realities is, who builds it, and why it is a free, social space for VR art.",
+  path: "/about/",
+});
 
 export default function AboutPage() {
   return (

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/metadata";
 import LoopVideo from "@/components/LoopVideo";
 import SafeImage from "@/components/SafeImage";
 
@@ -17,11 +18,12 @@ const patronCommunity = [
   "A small signal group helping shape what stays alive",
 ];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Support MOR",
   description:
     "Support the Museum of Other Realities on Patreon and help keep the free social VR museum open for everyone.",
-};
+  path: "/support/",
+});
 
 export default function SupportPage() {
   return (

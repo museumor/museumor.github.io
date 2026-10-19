@@ -3,6 +3,7 @@ import { Work_Sans, DM_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { pageMetadata, SITE_NAME, SITE_URL } from "@/lib/metadata";
 
 const workSans = Work_Sans({
   variable: "--font-work-sans",
@@ -17,14 +18,22 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://museumor.com"),
+  ...pageMetadata({
+    title: SITE_NAME,
+    description: "A free social VR museum for immersive art, evolving exhibitions, and shared experiences with artists and friends.",
+    path: "/",
+    absoluteTitle: true,
+  }),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Museum of Other Realities",
-    template: "%s | Museum of Other Realities",
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
   },
-  description: "A free social VR museum for immersive art, evolving exhibitions, and shared experiences with artists and friends.",
+  // Pages set their own canonical; don't let every page inherit "/".
+  alternates: undefined,
   icons: {
     icon: "/favicon.png",
+    apple: "/favicon.png",
   },
 };
 

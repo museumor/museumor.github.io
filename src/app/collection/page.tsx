@@ -1,5 +1,14 @@
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { collection } from "@/data/collection";
 import SafeImage from "@/components/SafeImage";
+
+export const metadata: Metadata = pageMetadata({
+  title: "The Collection",
+  description:
+    "Explore the MOR collection: artwork created with virtual reality tools or made for VR viewing, from Tilt Brush to Quill.",
+  path: "/collection/",
+});
 
 export default function CollectionPage() {
   return (

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/metadata";
 import LoopVideo from "@/components/LoopVideo";
 import SafeImage from "@/components/SafeImage";
 import { blogPosts } from "@/data/blog";
@@ -165,11 +166,13 @@ const softwareApplicationSchema = {
   url: "https://museumor.com",
 };
 
-export const metadata: Metadata = {
-  title: "Free Social VR Art Museum",
+export const metadata: Metadata = pageMetadata({
+  title: "Museum of Other Realities | Free Social VR Art Museum",
   description:
     "MOR is a free, multiplayer VR museum for immersive art. Visit with friends, explore evolving exhibitions from 20+ artists.",
-};
+  path: "/",
+  absoluteTitle: true,
+});
 
 export default function Home() {
   return (

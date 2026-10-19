@@ -1,4 +1,7 @@
+import type { Metadata } from "next";
 import { blogContent } from "@/data/blog_content";
+import { blogPosts } from "@/data/blog";
+import { pageMetadata } from "@/lib/metadata";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import SafeImage from "@/components/SafeImage";
@@ -6,6 +9,27 @@ import DOMPurify from "isomorphic-dompurify";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
+}
+
+function summarize(text: string, max = 160) {
+  const clean = text.replace(/<[^>]*>/g, " ").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+  if (clean.length <= max) return clean;
+  return `${clean.slice(0, max - 1).replace(/\s+\S*$/, "")}…`;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = blogContent[slug];
+  if (!post) return {};
+
+  const snippet = blogPosts.find((p) => p.slug === slug)?.snippet;
+  return pageMetadata({
+    title: post.title,
+    description: summarize(snippet || post.content),
+    path: `/blog/${slug}/`,
+    image: post.image,
+    type: "article",
+  });
 }
 
 export default async function BlogPostPage({ params }: PageProps) {

@@ -1,6 +1,15 @@
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { blogPosts } from "@/data/blog";
 import Link from "next/link";
 import SafeImage from "@/components/SafeImage";
+
+export const metadata: Metadata = pageMetadata({
+  title: "Blog",
+  description:
+    "Artist spotlights, behind-the-scenes stories, and event recaps from the Museum of Other Realities.",
+  path: "/blog/",
+});
 
 export default function BlogPage() {
   return (

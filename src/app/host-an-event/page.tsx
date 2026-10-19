@@ -1,3 +1,12 @@
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
+export const metadata: Metadata = pageMetadata({
+  title: "Host an Event",
+  description:
+    "Host your exhibition opening, festival, or private gathering inside the Museum of Other Realities, a social VR venue.",
+  path: "/host-an-event/",
+});
+
 export default function HostEventPage() {
   return (
     <div className="w-full bg-zinc-950 min-h-screen text-gray-200">

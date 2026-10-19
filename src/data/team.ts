@@ -13,5 +13,5 @@ export const team: TeamMember[] = [
   { name: "Adiba Muzaffar", role: "Content Strategist", image: "/images/team/adiba-muzaffar.jpg" },
   { name: "Em Halberstadt", role: "Sound Designer", image: "/images/team/em-halberstadt.png" },
   { name: "Nicholas Zhang", role: "Audio Programmer", image: "/images/team/nicholas-zhang.jpg" },
-  { name: "Maris Tammik", role: "Audio Programmer", image: "/images/team/maris-tammik.png" },
+  { name: "Maris Tammik", role: "Audio Programmer", image: "/images/team/maris-tammik.jpg" },
 ];

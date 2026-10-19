@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import LoopVideo from "@/components/LoopVideo";
 import SafeImage from "@/components/SafeImage";
 
 const patreonUrl = "https://www.patreon.com/museumofotherrealities";
@@ -101,8 +102,8 @@ export default function SupportPage() {
       <section className="mx-auto max-w-7xl px-6 pb-24">
         <div className="grid overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950 md:grid-cols-[0.95fr_1.05fr]">
           <div className="relative min-h-[20rem]">
-            <SafeImage
-              src="/images/gifs/sutu-equinoxe-zoom.gif"
+            <LoopVideo
+              src="/images/gifs/sutu-equinoxe-zoom.mp4"
               alt="Immersive artwork inside MOR"
               className="h-full w-full object-cover opacity-82"
             />

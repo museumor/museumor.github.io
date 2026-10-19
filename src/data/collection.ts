@@ -26,14 +26,6 @@ export const collection: ArtWork[] = [
     "slug": "baddies"
   },
   {
-    "title": "Bamboo Forest",
-    "artist": "Vladimir Ilic",
-    "year": "2017",
-    "category": "Tilt Brush",
-    "image": "/images/collection/bamboo-forest.jpg",
-    "slug": "bamboo-forest"
-  },
-  {
     "title": "Black And White Daydream",
     "artist": "Anna Zhilyaeva",
     "year": "2019",

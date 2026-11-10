@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { blogContent } from "@/data/blog_content";
 import { blogPosts } from "@/data/blog";
-import { fixLegacyLinks } from "@/lib/legacyLinks";
+import { articleHtml } from "@/lib/articleHtml";
 import { pageMetadata } from "@/lib/metadata";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import SafeImage from "@/components/SafeImage";
-import DOMPurify from "isomorphic-dompurify";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -59,7 +58,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
       <article className="mx-auto w-full max-w-[720px]">
         <div
-          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(fixLegacyLinks(post.content)) }}
+          dangerouslySetInnerHTML={{ __html: articleHtml(post.content) }}
           className="blog-content"
         />
       </article>

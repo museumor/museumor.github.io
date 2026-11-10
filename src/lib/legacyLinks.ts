@@ -24,6 +24,14 @@ function currentPath(path: string): string | null {
   if (section === "contact" || section === "contact-us") {
     return "/about/";
   }
+  // The old community page was a pointer to the Discord server.
+  if (section === "community") {
+    return "https://discord.com/invite/Xmr2wXR";
+  }
+  // Tilt Brush's own site is gone; Google's open-source release is its home now.
+  if (section === "tool" && slug === "tilt-brush") {
+    return "https://github.com/googlevr/tilt-brush";
+  }
   return null;
 }
 
@@ -31,6 +39,8 @@ function currentPath(path: string): string | null {
 // routes (/artwork/..., /artists/<name>, /blog/<category>/...). Point those
 // links at the pages that replaced them.
 export function fixLegacyLinks(html: string): string {
+  // The mobile companion apps are no longer offered: keep the words, drop the links.
+  html = html.replace(/<a href="\/download\/(?:ios|android)"[^>]*>(.*?)<\/a>/g, "$1");
   return html.replace(/href="(\/[^"#?]*)([^"]*)"/g, (match, path: string, suffix: string) => {
     const next = currentPath(path);
     return next ? `href="${next}${next.includes("#") ? "" : suffix}"` : match;

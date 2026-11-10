@@ -38,11 +38,12 @@ const onViewWorks: OnViewWork[] = [
     href: "/collection/alexs-sci-fi-world",
   },
   {
-    title: "Blortasia",
+    title: "Blort",
     artist: "Kevin Mack",
+    year: "2017",
     description: "Abstract VR sculpture and color fields with the scale and strangeness of a lucid dream.",
     video: "/images/gifs/kevin-mac-art-blort.mp4",
-    href: "/collection",
+    href: "/collection/blort",
   },
 ];
 

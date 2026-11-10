@@ -48,7 +48,7 @@ export default function RootLayout({
       <head>
         <meta 
           httpEquiv="Content-Security-Policy" 
-          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; connect-src 'self';" 
+          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; frame-src https://www.youtube-nocookie.com https://player.vimeo.com; connect-src 'self';" 
         />
       </head>
       <body

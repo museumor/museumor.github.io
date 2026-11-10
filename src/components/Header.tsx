@@ -5,17 +5,18 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import SafeImage from './SafeImage';
 
+const steamUrl = 'https://store.steampowered.com/app/613900/Museum_of_Other_Realities/';
+
 const navLinks = [
-  { href: '/#visit', label: 'Visit' },
-  { href: '/artists', label: 'Artists' },
   { href: '/#exhibitions', label: 'Exhibitions' },
   { href: '/collection', label: 'Collection' },
-  { href: '/blog', label: 'Blog' },
+  { href: '/artists', label: 'Artists' },
+  { href: '/blog', label: 'Journal' },
   { href: '/support', label: 'Support' },
 ];
 
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const [menuPath, setMenuPath] = useState(pathname);
@@ -27,11 +28,17 @@ export default function Header() {
     setMenuOpen(false);
   }
 
+  // Slide the header away while scrolling down and bring it back on the
+  // first scroll up, so it never sits over the artwork.
   useEffect(() => {
+    let lastY = window.scrollY;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const y = window.scrollY;
+      if (Math.abs(y - lastY) < 8) return;
+      setHidden(y > lastY && y > 160);
+      lastY = y;
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -52,75 +59,68 @@ export default function Header() {
     };
   }, [menuOpen]);
 
+  const isCurrent = (href: string) => !href.startsWith('/#') && pathname.startsWith(href);
+
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        isScrolled || menuOpen
-          ? 'border-b border-white/10 bg-black/80 py-3 backdrop-blur-xl'
-          : 'border-b border-white/8 bg-gradient-to-b from-black/88 via-black/78 to-black/72 py-4 backdrop-blur-md'
+      className={`fixed top-0 z-50 w-full border-b border-rule bg-ground transition-transform duration-300 focus-within:translate-y-0 ${
+        hidden && !menuOpen ? '-translate-y-full' : 'translate-y-0'
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
-        <Link href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
+      <div className="shell flex h-[72px] items-center justify-between gap-8">
+        <Link href="/" aria-label="Museum of Other Realities, home" className="flex min-h-12 items-center">
           <SafeImage
             src="/images/logo/MOR_Logomark-forweb_white.png"
-            alt="Museum of Other Realities"
-            className="h-8 w-auto"
+            alt=""
+            className="h-7 w-auto"
             loading="eager"
           />
-          <div className="hidden sm:block">
-            <div className="text-xs uppercase tracking-[0.32em] text-white/50">Museum of</div>
-            <div className="text-sm font-medium tracking-[0.24em] text-white">Other Realities</div>
-          </div>
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm md:flex">
+        <nav aria-label="Main" className="hidden items-center gap-8 text-[15px] md:flex">
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="text-white/70 transition-colors hover:text-white">
+            <Link
+              key={link.href}
+              href={link.href}
+              aria-current={isCurrent(link.href) ? 'page' : undefined}
+              className={`border-b py-3 text-ivory transition-colors hover:text-white ${
+                isCurrent(link.href) ? 'border-brass' : 'border-transparent'
+              }`}
+            >
               {link.label}
             </Link>
           ))}
+          <a href={steamUrl} target="_blank" rel="noopener noreferrer" className="link-rule">
+            Visit free
+          </a>
         </nav>
 
-        <div className="flex items-center gap-3">
-          <a
-            href="https://store.steampowered.com/app/613900/Museum_of_Other_Realities/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white px-4 py-2 text-sm font-medium text-black transition-transform hover:-translate-y-0.5 hover:bg-white/90"
-          >
-            Visit Free
+        <div className="flex items-center gap-5 md:hidden">
+          <a href={steamUrl} target="_blank" rel="noopener noreferrer" className="link-rule">
+            Visit free
           </a>
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:bg-white/10 md:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center text-ivory"
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
             onClick={() => setMenuOpen((open) => !open)}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-              {menuOpen ? (
-                <path d="M6 6l12 12M18 6L6 18" />
-              ) : (
-                <path d="M4 7h16M4 12h16M4 17h16" />
-              )}
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
+              {menuOpen ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 8h16M4 16h16" />}
             </svg>
           </button>
         </div>
       </div>
 
-      <nav
-        id="mobile-nav"
-        hidden={!menuOpen}
-        className="mx-auto max-w-7xl px-6 pb-2 pt-3 md:hidden"
-      >
-        <ul className="flex flex-col divide-y divide-white/8 border-t border-white/10">
+      <nav id="mobile-nav" aria-label="Main" hidden={!menuOpen} className="shell pb-4 md:hidden">
+        <ul className="flex flex-col border-t border-rule">
           {navLinks.map((link) => (
-            <li key={link.href}>
+            <li key={link.href} className="border-b border-rule">
               <Link
                 href={link.href}
-                className="block py-4 text-base text-white/80 transition-colors hover:text-white"
+                className="display block py-4 text-2xl text-ivory"
                 onClick={() => setMenuOpen(false)}
               >
                 {link.label}

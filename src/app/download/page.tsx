@@ -3,34 +3,32 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 
+const steamUrl = "https://store.steampowered.com/app/613900/Museum_of_Other_Realities/";
+
 export default function DownloadPage() {
-  
+  // Send visitors on to Steam after a short pause; the button is there for
+  // anyone who would rather not wait.
   useEffect(() => {
-    // Optional: Auto-redirect after a few seconds
     const timer = setTimeout(() => {
-       window.location.href = "https://store.steampowered.com/app/613900/Museum_of_Other_Realities/";
+      window.location.href = steamUrl;
     }, 3000);
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="w-full h-screen bg-black flex flex-col items-center justify-center px-4 text-center">
-      <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">Redirecting to Steam...</h1>
-      <p className="text-gray-400 mb-10 max-w-lg">
-        The Museum of Other Realities is available on Steam for PC VR headsets.
-      </p>
-      
-      <div className="flex flex-col gap-4">
-        <a 
-          href="https://store.steampowered.com/app/613900/Museum_of_Other_Realities/"
-          className="px-8 py-4 bg-[#66c0f4] text-black font-bold text-lg rounded-full hover:bg-white transition-colors flex items-center justify-center gap-3"
-        >
-          <span>Visit on Steam</span>
-        </a>
-        
-        <Link href="/" className="text-sm text-gray-500 hover:text-white mt-4 underline">
-          Return to Homepage
-        </Link>
+    <div className="page min-h-[70vh] justify-center">
+      <div className="flex max-w-[640px] flex-col items-start gap-6">
+        <p className="eyebrow">Download</p>
+        <h1 className="page-title">Taking you to Steam</h1>
+        <p className="text-soft">The Museum of Other Realities is available on Steam for PC VR headsets.</p>
+        <div className="flex flex-wrap items-center gap-x-7 gap-y-3">
+          <a href={steamUrl} className="btn-primary">
+            Visit on Steam
+          </a>
+          <Link href="/" className="link-rule">
+            Return to the homepage
+          </Link>
+        </div>
       </div>
     </div>
   );

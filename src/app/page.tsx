@@ -6,7 +6,7 @@ import LoopVideo from "@/components/LoopVideo";
 import OnView, { type OnViewWork } from "@/components/OnView";
 import PressQuotes from "@/components/PressQuotes";
 import SafeImage from "@/components/SafeImage";
-import { blogPosts } from "@/data/blog";
+import { postsByDate } from "@/lib/posts";
 
 const steamUrl = "https://store.steampowered.com/app/613900/Museum_of_Other_Realities/";
 const trailerUrl = "https://www.youtube.com/watch?v=zUtqvp1LIcM";
@@ -31,7 +31,7 @@ const onViewWorks: OnViewWork[] = [
   },
   {
     title: "Alex's Sci-Fi World",
-    artist: "Nick Ladd",
+    artist: "Matt Schaefer",
     year: "2018",
     description: "Hand-drawn world-building that turns animated illustration into someplace you can inhabit.",
     video: "/images/gifs/ladd-alexs-scifi-world.mp4",
@@ -350,7 +350,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="border-b border-rule">
-            {blogPosts.slice(0, 3).map((post) => (
+            {postsByDate.slice(0, 3).map((post) => (
               <Link
                 key={post.slug}
                 href={post.link}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { blogContent } from "@/data/blog_content";
 import { blogPosts } from "@/data/blog";
+import { fixLegacyLinks } from "@/lib/legacyLinks";
 import { pageMetadata } from "@/lib/metadata";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -41,32 +42,33 @@ export default async function BlogPostPage({ params }: PageProps) {
   }
 
   return (
-    <div className="w-full bg-zinc-950 min-h-screen text-gray-200">
-      <div className="container mx-auto px-6 py-24 max-w-4xl">
-        <Link href="/blog" className="text-purple-400 hover:text-white transition-colors mb-8 inline-block font-bold uppercase tracking-widest text-sm">
-          ← Back to Blog
+    <div className="page">
+      <header className="flex flex-col gap-5">
+        <Link href="/blog" className="eyebrow inline-flex min-h-11 items-center self-start hover:text-ivory">
+          Journal
         </Link>
-        
-        <header className="mb-12">
-          <span className="text-sm font-bold text-purple-500 uppercase tracking-widest block mb-3">{post.date}</span>
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-8">{post.title}</h1>
-          
-          <div className="w-full aspect-video bg-zinc-900 rounded-xl overflow-hidden border border-white/5">
-            <SafeImage 
-              src={post.image} 
-              alt={post.title}
-              className="w-full h-full object-cover opacity-90"
-            />
-          </div>
-        </header>
+        <h1 className="display max-w-[1040px] text-[clamp(36px,5vw,72px)] leading-[1.04] !tracking-[-0.02em]">
+          {post.title}
+        </h1>
+        <p className="text-[13px] uppercase tracking-[0.1em] text-muted">{post.date}</p>
+      </header>
 
-        <article className="prose prose-invert prose-purple max-w-none prose-lg">
-          <div 
-            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }} 
-            className="blog-content text-gray-300 leading-relaxed"
-          />
-        </article>
+      <div className="aspect-video overflow-hidden bg-well">
+        <SafeImage src={post.image} alt="" loading="eager" className="h-full w-full object-cover" />
       </div>
+
+      <article className="mx-auto w-full max-w-[720px]">
+        <div
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(fixLegacyLinks(post.content)) }}
+          className="blog-content"
+        />
+      </article>
+
+      <nav aria-label="Journal" className="border-t border-rule pt-6">
+        <Link href="/blog" className="link-rule">
+          All articles
+        </Link>
+      </nav>
     </div>
   );
 }

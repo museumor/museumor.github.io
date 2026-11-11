@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import SafeImage from './SafeImage';
+import { useSwipe } from '@/lib/useSwipe';
 
 export interface HeroSlide {
   image: string;
@@ -27,13 +28,25 @@ export default function HeroSlides({ slides, children }: { slides: HeroSlide[]; 
     return () => clearInterval(timer);
   }, [paused, slides.length]);
 
+  const show = (by: number) => {
+    setIndex((i) => (i + by + slides.length) % slides.length);
+    setPaused(true);
+  };
+  const swipe = useSwipe(
+    () => show(-1),
+    () => show(1)
+  );
+
   const current = slides[index];
 
   return (
     // Wide screens: text sits on the dark floor of the image. Narrow screens:
     // the image stays clean and the text follows it on the page ground.
     <section id="visit" aria-label="Now showing" className="relative bg-ground md:h-[clamp(520px,52vw,760px)] md:overflow-hidden">
-      <div className="relative h-[72vw] max-h-[440px] overflow-hidden bg-well md:absolute md:inset-0 md:h-auto md:max-h-none">
+      <div
+        className="relative h-[72vw] max-h-[440px] touch-pan-y overflow-hidden bg-well md:absolute md:inset-0 md:h-auto md:max-h-none"
+        {...swipe}
+      >
         {slides.map((slide, i) => (
           <SafeImage
             key={slide.image}

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { BASE_PATH } from '@/lib/constants';
+import { useSwipe } from '@/lib/useSwipe';
 
 export interface OnViewWork {
   title: string;
@@ -15,7 +16,7 @@ export interface OnViewWork {
 }
 
 // Numbered index of works. Hovering, focusing or tapping a title crossfades
-// the preview beside it. Only the selected clip downloads and plays, and
+// the preview beside it; on touch screens the preview can also be swiped. Only the selected clip downloads and plays, and
 // visitors who prefer reduced motion see the poster frames instead.
 export default function OnView({ works }: { works: OnViewWork[] }) {
   const [active, setActive] = useState(0);
@@ -66,6 +67,12 @@ export default function OnView({ works }: { works: OnViewWork[] }) {
     });
   }, [active, loaded]);
 
+  const step = (by: number) => select((activeRef.current + by + works.length) % works.length);
+  const swipe = useSwipe(
+    () => step(-1),
+    () => step(1)
+  );
+
   const current = works[active];
 
   return (
@@ -94,7 +101,7 @@ export default function OnView({ works }: { works: OnViewWork[] }) {
         ))}
       </ol>
 
-      <figure className="flex min-w-0 flex-[1_1_460px] flex-col gap-4">
+      <figure className="flex min-w-0 flex-[1_1_460px] touch-pan-y flex-col gap-4" {...swipe}>
         <div ref={frameRef} className="relative aspect-video overflow-hidden bg-well">
           {works.map((work, i) => (
             <video
@@ -116,6 +123,24 @@ export default function OnView({ works }: { works: OnViewWork[] }) {
               }`}
             />
           ))}
+        </div>
+        {/* Touch screens: a visible way to step through, alongside swiping. */}
+        <div className="-my-2 flex items-center justify-between text-[13px] text-muted lg:hidden">
+          <span aria-hidden="true" className="tracking-[0.1em]">
+            {String(active + 1).padStart(2, '0')} / {String(works.length).padStart(2, '0')}
+          </span>
+          <div className="-mr-3 flex items-center">
+            <button type="button" aria-label="Previous work" onClick={() => step(-1)} className="h-11 w-11 text-ivory">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="mx-auto">
+                <path d="M15 5l-7 7 7 7" />
+              </svg>
+            </button>
+            <button type="button" aria-label="Next work" onClick={() => step(1)} className="h-11 w-11 text-ivory">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="mx-auto">
+                <path d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
         </div>
         <figcaption className="flex min-h-[112px] max-w-[480px] flex-col gap-1.5" aria-live="polite">
           <span className="font-heading text-[22px] italic leading-tight">{current.title}</span>

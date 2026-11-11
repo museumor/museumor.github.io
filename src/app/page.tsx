@@ -56,9 +56,9 @@ const heroSlides: HeroSlide[] = [
   },
   {
     image: "/images/home/gallery-community.jpg",
-    alt: "Coloured sculptural forms floating in a dark gallery of the museum",
-    title: "Gallery view",
-    credit: "Museum of Other Realities",
+    alt: "Capsule by Em Halberstadt: coloured sculptural forms floating in a dark gallery of the museum",
+    title: "Capsule",
+    credit: "Em Halberstadt, 2017",
   },
 ];
 

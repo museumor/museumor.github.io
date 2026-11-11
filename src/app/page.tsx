@@ -45,6 +45,14 @@ const onViewWorks: OnViewWork[] = [
     video: "/images/gifs/kevin-mac-art-blort.mp4",
     href: "/collection/blort",
   },
+  {
+    title: "Lagrange Point",
+    artist: "Liz Edwards",
+    year: "2016",
+    description: "A spaceship adrift among asteroids, drawn in stark black and white around one small, glowing planet.",
+    video: "/images/gifs/edwards-lagrange-point.mp4",
+    href: "/collection/lagrange-point",
+  },
 ];
 
 const heroSlides: HeroSlide[] = [

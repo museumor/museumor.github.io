@@ -1,4 +1,6 @@
-export interface ArtWork { title: string; artist: string; year: string; category?: string; image: string; slug: string; }
+export interface ArtWork { title: string; artist: string; year: string; category?: string; image: string; slug: string;
+  // Optional short looping clip (.mp4) shown in the collection list; `image` stays the still.
+  clip?: string; }
 
 export const collection: ArtWork[] = [
   {
@@ -95,7 +97,8 @@ export const collection: ArtWork[] = [
     "year": "2020",
     "category": "Houdini; Unity",
     "image": "/images/collection/devalaya-rupanam.jpg",
-    "slug": "devalaya-rupanam"
+    "slug": "devalaya-rupanam",
+    "clip": "/images/gifs/kevin-mack-devalaya-rupanam.mp4"
   },
   {
     "title": "Dogma Duality Desire",
@@ -215,7 +218,8 @@ export const collection: ArtWork[] = [
     "year": "2016",
     "category": "Tilt Brush",
     "image": "/images/collection/lagrange-point.jpg",
-    "slug": "lagrange-point"
+    "slug": "lagrange-point",
+    "clip": "/images/gifs/edwards-lagrange-point.mp4"
   },
   {
     "title": "Lignes de Fleurs",

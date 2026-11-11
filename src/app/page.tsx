@@ -273,11 +273,13 @@ export default function Home() {
             <div className="aspect-[21/9] overflow-hidden bg-well">
               <SafeImage
                 src="/images/home/gallery-community.jpg"
-                alt="Coloured sculptural forms floating in a dark gallery of the museum"
+                alt="Capsule by Em Halberstadt: coloured sculptural forms floating in a dark gallery of the museum"
                 className="settle h-full w-full object-cover"
               />
             </div>
-            <figcaption className="text-[13px] text-muted">Gallery view, Museum of Other Realities</figcaption>
+            <figcaption className="text-[13px] text-muted">
+              <span className="italic">Capsule</span>, Em Halberstadt, 2017
+            </figcaption>
           </figure>
 
           <div className="grid gap-x-12 gap-y-8 md:grid-cols-3">

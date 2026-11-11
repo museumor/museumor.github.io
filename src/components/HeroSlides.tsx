@@ -46,8 +46,12 @@ export default function HeroSlides({ slides, children }: { slides: HeroSlide[]; 
             }`}
           />
         ))}
-        {/* Scrim only under the text; the top of the artwork stays untouched. */}
-        <div aria-hidden="true" className="absolute inset-0 hidden bg-gradient-to-b from-ground/0 from-[42%] to-ground/90 md:block" />
+        {/* The artwork dissolves into the page ground at its lower edge, so the
+            hero has no hard bottom line; the top of the image stays untouched. */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-b from-ground/0 from-[72%] to-ground md:from-[38%] md:via-ground/80 md:via-[78%]"
+        />
       </div>
 
       <div className="relative md:absolute md:inset-x-0 md:bottom-0">

@@ -154,12 +154,22 @@ const partners = [
   {
     name: "Kaleidoscope",
     image: "/images/logo/Kaleidoscope_logo.png",
-    className: "h-8 md:h-10",
+    className: "h-7 md:h-8",
   },
   {
     name: "VIFF",
     image: "/images/logo/VIFF_Logo_WEB.png",
-    className: "h-8 md:h-10 invert",
+    className: "h-7 md:h-8 invert",
+  },
+  {
+    name: "National Film Board of Canada",
+    image: "/images/logo/NFB_Logo_white.svg",
+    className: "h-8 md:h-10",
+  },
+  {
+    name: "Canada Media Fund",
+    image: "/images/logo/CMF_Logo_white.png",
+    className: "h-9 md:h-11",
   },
 ];
 
@@ -208,6 +218,26 @@ export default function Home() {
           </a>
         </div>
       </HeroSlides>
+
+      {/* The hero image fades into the page ground; the organisations the
+          museum has worked with sit in the quiet space that follows. */}
+      <section
+        aria-label="Festivals and partners"
+        className="shell flex flex-col items-center gap-9 pb-[clamp(24px,3vw,40px)] pt-[clamp(56px,7vw,104px)]"
+      >
+        <p className="eyebrow text-center">Festivals and partners over the years</p>
+        <ul className="flex max-w-[640px] flex-wrap items-center justify-center gap-x-[clamp(32px,3vw,44px)] gap-y-8 xl:max-w-none">
+          {partners.map((partner) => (
+            <li key={partner.name}>
+              <SafeImage
+                src={partner.image}
+                alt={partner.name}
+                className={`${partner.className} w-auto opacity-60 transition-opacity duration-300 hover:opacity-100`}
+              />
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <section id="exhibitions" className="shell section-y">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-x-12 gap-y-4">
@@ -323,19 +353,6 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-6 border-t border-rule pt-6">
-            <p className="eyebrow">Festival and cultural partners</p>
-            <div className="flex flex-wrap items-center gap-x-12 gap-y-6">
-              {partners.map((partner) => (
-                <SafeImage
-                  key={partner.name}
-                  src={partner.image}
-                  alt={partner.name}
-                  className={`${partner.className} w-auto opacity-70`}
-                />
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 

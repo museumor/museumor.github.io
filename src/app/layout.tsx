@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
-import { Work_Sans, DM_Sans } from "next/font/google";
+import { Instrument_Sans, Jost } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { pageMetadata, SITE_NAME, SITE_URL } from "@/lib/metadata";
 
-const workSans = Work_Sans({
-  variable: "--font-work-sans",
+// Body copy.
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument-sans",
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
+// Titles. Its round geometric forms echo the MOR logomark.
+const jost = Jost({
+  variable: "--font-jost",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -47,14 +48,14 @@ export default function RootLayout({
       <head>
         <meta 
           httpEquiv="Content-Security-Policy" 
-          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; connect-src 'self';" 
+          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; frame-src https://www.youtube-nocookie.com https://player.vimeo.com; connect-src 'self';" 
         />
       </head>
       <body
-        className={`${workSans.variable} ${dmSans.variable} antialiased min-h-screen flex flex-col`}
+        className={`${instrumentSans.variable} ${jost.variable} antialiased min-h-screen flex flex-col`}
       >
         <Header />
-        <main className="flex-grow pt-16">
+        <main className="flex-grow pt-[72px]">
           {children}
         </main>
         <Footer />

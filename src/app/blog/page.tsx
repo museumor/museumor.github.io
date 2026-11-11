@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/metadata";
-import { blogPosts } from "@/data/blog";
+import { postsByDate } from "@/lib/posts";
 import Link from "next/link";
 import SafeImage from "@/components/SafeImage";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Blog",
+  title: "Journal",
   description:
     "Artist spotlights, behind-the-scenes stories, and event recaps from the Museum of Other Realities.",
   path: "/blog/",
@@ -13,36 +13,38 @@ export const metadata: Metadata = pageMetadata({
 
 export default function BlogPage() {
   return (
-    <div className="w-full bg-zinc-950 min-h-screen text-gray-200">
-      <div className="container mx-auto px-6 py-24 max-w-3xl">
-        <h1 className="text-5xl md:text-7xl font-bold mb-16 text-white text-center">BLOG</h1>
-        
-        <div className="space-y-16">
-          {blogPosts.map((post, index) => (
-            <article key={index} className="border-b border-white/10 pb-16 last:border-0">
-              {/* Blog Image */}
-              <Link href={post.link} className="block w-full aspect-video bg-zinc-900 rounded-lg overflow-hidden mb-8 border border-white/5 hover:border-purple-500/30 transition-all">
-                <SafeImage 
-                  src={post.image} 
-                  alt={post.title}
-                  className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity"
-                />
-              </Link>
-
-              <span className="text-sm font-bold text-purple-500 uppercase tracking-widest block mb-3">{post.date}</span>
-              <h2 className="text-3xl font-bold text-white mb-4 hover:text-purple-400 transition-colors">
-                <Link href={post.link}>{post.title}</Link>
-              </h2>
-              <p className="text-lg text-gray-400 leading-relaxed mb-6">
-                {post.snippet}
-              </p>
-              <Link href={post.link} className="text-sm font-bold text-white border-b border-white hover:text-purple-400 hover:border-purple-400 transition-colors pb-1">
-                Read More
-              </Link>
-            </article>
-          ))}
-        </div>
+    <div className="page">
+      <div className="flex flex-wrap items-end gap-x-[72px] gap-y-6">
+        <h1 className="page-title min-w-0 flex-[1_1_420px]">Journal</h1>
+        <p className="min-w-0 flex-[1_1_360px] text-soft">
+          Artist spotlights, behind-the-scenes stories, and event recaps from the museum.
+        </p>
       </div>
+
+      <section aria-label="Articles" className="flex flex-col">
+        <p className="eyebrow border-t border-brass pt-4">{postsByDate.length} articles</p>
+        <ul className="mt-6 border-b border-rule">
+          {postsByDate.map((post) => (
+            <li key={post.slug}>
+              <Link
+                href={post.link}
+                className="group grid gap-x-10 gap-y-4 border-t border-rule py-8 md:grid-cols-[minmax(0,300px)_minmax(0,1fr)]"
+              >
+                <div className="aspect-[16/10] overflow-hidden bg-well">
+                  <SafeImage src={post.image} alt="" className="h-full w-full object-cover" />
+                </div>
+                <div className="flex max-w-[640px] flex-col gap-2">
+                  <span className="text-[13px] uppercase tracking-[0.1em] text-muted">{post.date}</span>
+                  <h2 className="font-heading text-[clamp(24px,2.4vw,32px)] font-normal leading-[1.15] transition-colors group-hover:text-white">
+                    {post.title}
+                  </h2>
+                  <p className="line-clamp-3 text-[15px] text-muted">{post.snippet}</p>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   );
 }

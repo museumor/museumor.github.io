@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/metadata";
 import LoopVideo from "@/components/LoopVideo";
-import SafeImage from "@/components/SafeImage";
 
 const patreonUrl = "https://www.patreon.com/museumofotherrealities";
 
@@ -27,108 +26,72 @@ export const metadata: Metadata = pageMetadata({
 
 export default function SupportPage() {
   return (
-    <div className="w-full bg-black text-white">
-      <section className="relative min-h-[72vh] overflow-hidden">
-        <div className="absolute inset-0">
-          <SafeImage
-            src="/images/home/Hero-NightSnow.jpg"
-            alt="Museum of Other Realities gallery space"
-            className="h-full w-full object-cover opacity-58"
-            loading="eager"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/42 via-black/68 to-black" />
+    <div className="page">
+      <div className="flex flex-col gap-6">
+        <p className="eyebrow">Support MOR</p>
+        <h1 className="page-title max-w-[1040px]">Keep the museum free for everyone who enters.</h1>
+        <p className="max-w-[640px] text-soft">
+          MOR is not using Patreon as a store, ticket, or exclusive art gate. Patrons keep the open museum possible
+          while every exhibition stays free to visit on Steam.
+        </p>
+        <div className="flex flex-wrap items-center gap-x-7 gap-y-3">
+          <a href={patreonUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
+            Become a patron
+          </a>
+          <Link href="/download" className="link-rule">
+            Visit free on Steam
+          </Link>
         </div>
+      </div>
 
-        <div className="relative mx-auto flex max-w-7xl flex-col justify-end px-6 pb-16 pt-36">
-          <p className="text-xs uppercase tracking-[0.34em] text-white/52">Support MOR</p>
-          <h1 className="mt-5 max-w-4xl text-4xl font-light leading-[1.02] text-white md:text-6xl">
-            Keep the museum free for everyone who enters.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-white/72">
-            MOR is not using Patreon as a store, ticket, or exclusive art gate. Patrons keep the open museum possible
-            while every exhibition stays free to visit on Steam.
+      <div className="grid gap-x-[72px] gap-y-14 border-t border-brass pt-[clamp(32px,4vw,48px)] md:grid-cols-2">
+        <section className="flex flex-col gap-4">
+          <p className="eyebrow">What patrons fund</p>
+          <h2 className="section-title">The fixed costs behind open access</h2>
+          <p className="text-soft">
+            Removing the paywall makes MOR easier to enter, share, and revisit. Patron support pays for the less
+            visible work that keeps that decision practical.
           </p>
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <a
-              href={patreonUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-14 items-center justify-center rounded-full bg-white px-7 text-sm font-medium text-black transition-transform hover:-translate-y-0.5 hover:bg-white/90 sm:min-w-[220px]"
-            >
-              Become a Patron
-            </a>
-            <Link
-              href="/download"
-              className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/15 bg-black/20 px-7 text-sm font-medium text-white transition-colors hover:border-white/30 hover:bg-white/5 sm:min-w-[220px]"
-            >
-              Visit Free on Steam
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto grid max-w-7xl gap-5 px-6 py-24 md:grid-cols-2">
-        <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 md:p-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-white/45">What Patrons Fund</p>
-          <h2 className="mt-4 text-3xl font-medium text-white">The fixed costs behind open access</h2>
-          <p className="mt-5 text-sm leading-7 text-white/68">
-            Removing the paywall makes MOR easier to enter, share, and revisit. Patron support pays for the less visible
-            work that keeps that decision practical.
-          </p>
-          <ul className="mt-8 space-y-4 text-sm leading-7 text-white/76">
+          <ul className="rule-list mt-2 text-[15px]">
             {fundingUses.map((item) => (
-              <li key={item} className="border-t border-white/10 pt-4">
-                {item}
-              </li>
+              <li key={item}>{item}</li>
             ))}
           </ul>
-        </div>
+        </section>
 
-        <div className="rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-8 md:p-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-white/45">Core Community</p>
-          <h2 className="mt-4 text-3xl font-medium text-white">A signal group, not a customer base</h2>
-          <p className="mt-5 text-sm leading-7 text-white/68">
+        <section className="flex flex-col gap-4">
+          <p className="eyebrow">Core community</p>
+          <h2 className="section-title">A signal group, not a customer base</h2>
+          <p className="text-soft">
             Patreon is for those who wish to support the museum: the small community that reads field notes and helps
             MOR remain alive between public releases.
           </p>
-          <ul className="mt-8 space-y-4 text-sm leading-7 text-white/76">
+          <ul className="rule-list mt-2 text-[15px]">
             {patronCommunity.map((item) => (
-              <li key={item} className="border-t border-white/10 pt-4">
-                {item}
-              </li>
+              <li key={item}>{item}</li>
             ))}
           </ul>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      <section className="mx-auto max-w-7xl px-6 pb-24">
-        <div className="grid overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950 md:grid-cols-[0.95fr_1.05fr]">
-          <div className="relative min-h-[20rem]">
-            <LoopVideo
-              src="/images/gifs/sutu-equinoxe-zoom.mp4"
-              alt="Immersive artwork inside MOR"
-              className="h-full w-full object-cover opacity-82"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-          </div>
-          <div className="flex flex-col justify-center p-8 md:p-10">
-            <p className="text-xs uppercase tracking-[0.3em] text-white/45">Stewardship</p>
-            <h2 className="mt-4 text-3xl font-medium text-white md:text-4xl">
-              Support the space, not a paywall.
-            </h2>
-            <p className="mt-5 text-sm leading-7 text-white/70">
-              Patrons help MOR stay abundant: more visitors can enter freely, artists have a live context for their work,
-              and the museum can keep maintaining the strange rooms that make VR art feel at home.
-            </p>
-            <a
-              href={patreonUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 inline-flex min-h-14 w-fit items-center justify-center rounded-full bg-white px-7 text-sm font-medium text-black transition-transform hover:-translate-y-0.5 hover:bg-white/90"
-            >
-              Support on Patreon
-            </a>
-          </div>
+      <section className="grid items-center gap-x-[72px] gap-y-8 border-t border-rule pt-[clamp(40px,5vw,64px)] md:grid-cols-2">
+        <div className="aspect-video overflow-hidden bg-well">
+          <LoopVideo
+            src="/images/gifs/sutu-equinoxe-zoom.mp4"
+            alt="Immersive artwork inside MOR"
+            className="h-full w-full object-cover"
+          />
+        </div>
+        <div className="flex flex-col items-start gap-4">
+          <p className="eyebrow">Stewardship</p>
+          <h2 className="section-title">Support the space, not a paywall.</h2>
+          <p className="text-soft">
+            Patrons help MOR stay abundant: more visitors can enter freely, artists have a live context for their
+            work, and the museum can keep maintaining the strange rooms that make VR art feel at home.
+          </p>
+          <a href={patreonUrl} target="_blank" rel="noopener noreferrer" className="btn-primary mt-2">
+            Support on Patreon
+          </a>
         </div>
       </section>
     </div>

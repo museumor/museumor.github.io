@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/metadata";
+
 export const metadata: Metadata = pageMetadata({
   title: "Host an Event",
   description:
@@ -7,39 +8,40 @@ export const metadata: Metadata = pageMetadata({
   path: "/host-an-event/",
 });
 
+const reasons = [
+  "Unforgettable immersive environments",
+  "Global reach for your audience",
+  "Custom branding opportunities",
+  "Professional audio/visual support",
+];
+
 export default function HostEventPage() {
   return (
-    <div className="w-full bg-zinc-950 min-h-screen text-gray-200">
-      <div className="container mx-auto px-6 py-24 max-w-4xl">
-        <h1 className="text-5xl md:text-7xl font-bold mb-12 text-white">HOST AN EVENT</h1>
-        
-        <section className="mb-16">
-          <p className="text-xl leading-relaxed mb-6">
-            The Museum of Other Realities is the perfect venue for your next virtual event. 
-            Whether it&apos;s an exhibition opening, a festival, or a private gathering, we offer a unique, immersive space that defies the laws of physics.
-          </p>
-        </section>
+    <div className="page">
+      <div className="flex flex-wrap items-end gap-x-[72px] gap-y-8">
+        <h1 className="page-title min-w-0 flex-[1_1_420px]">Host an event</h1>
+        <p className="min-w-0 flex-[1_1_360px] text-soft">
+          The Museum of Other Realities is the perfect venue for your next virtual event. Whether it&apos;s an
+          exhibition opening, a festival, or a private gathering, we offer a unique, immersive space that defies the
+          laws of physics.
+        </p>
+      </div>
 
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
-          <div>
-            <h3 className="text-2xl font-bold text-white mb-4">Why Host With Us?</h3>
-            <ul className="space-y-4 text-gray-400">
-              <li className="flex items-start"><span className="text-purple-500 mr-2">✓</span> Unforgettable immersive environments</li>
-              <li className="flex items-start"><span className="text-purple-500 mr-2">✓</span> Global reach for your audience</li>
-              <li className="flex items-start"><span className="text-purple-500 mr-2">✓</span> Custom branding opportunities</li>
-              <li className="flex items-start"><span className="text-purple-500 mr-2">✓</span> Professional audio/visual support</li>
-            </ul>
-          </div>
-          <div className="bg-zinc-900 p-8 rounded-xl border border-white/10">
-            <h3 className="text-xl font-bold text-white mb-6">Get in Touch</h3>
-            <p className="mb-6 text-sm text-gray-400">Email us to discuss your event requirements.</p>
-            <a 
-              href="mailto:editor@museumor.com"
-              className="block w-full py-3 bg-white text-black text-center font-bold uppercase tracking-widest rounded hover:bg-purple-500 hover:text-white transition-colors"
-            >
-              Contact Us
-            </a>
-          </div>
+      <div className="flex flex-wrap gap-x-[72px] gap-y-12 border-t border-brass pt-[clamp(32px,4vw,48px)]">
+        <section className="flex min-w-0 flex-[1_1_420px] flex-col gap-6">
+          <h2 className="section-title">Why host with us?</h2>
+          <ul className="rule-list">
+            {reasons.map((reason) => (
+              <li key={reason}>{reason}</li>
+            ))}
+          </ul>
+        </section>
+        <section className="flex min-w-0 flex-[1_1_360px] flex-col items-start gap-6">
+          <h2 className="section-title">Get in touch</h2>
+          <p className="text-soft">Email us to discuss your event requirements.</p>
+          <a href="mailto:editor@museumor.com" className="btn-primary">
+            Email editor@museumor.com
+          </a>
         </section>
       </div>
     </div>

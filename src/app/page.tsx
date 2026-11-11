@@ -1,61 +1,74 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/metadata";
+import HeroSlides, { type HeroSlide } from "@/components/HeroSlides";
 import LoopVideo from "@/components/LoopVideo";
+import OnView, { type OnViewWork } from "@/components/OnView";
+import PressQuotes from "@/components/PressQuotes";
 import SafeImage from "@/components/SafeImage";
-import { blogPosts } from "@/data/blog";
+import { postsByDate } from "@/lib/posts";
 
 const steamUrl = "https://store.steampowered.com/app/613900/Museum_of_Other_Realities/";
 const trailerUrl = "https://www.youtube.com/watch?v=zUtqvp1LIcM";
 
-const featuredWorks = [
-  {
-    title: "Night Snow",
-    artist: "Dani Bittman",
-    description: "Glowing architecture suspended somewhere between memory, weather, and teleportation.",
-    video: "/images/gifs/bittman-night-snow-teleport.mp4",
-    href: "/artists",
-    span: "lg:col-span-7",
-  },
+// "On view" and the featured artists below never show the same piece.
+const onViewWorks: OnViewWork[] = [
   {
     title: "Immateria",
     artist: "Isaac Cohen",
+    year: "2020",
     description: "Shape-shifting matter and impossible bodies that feel native to VR.",
     video: "/images/gifs/cabbibo-immateria.mp4",
-    href: "/collection",
-    span: "lg:col-span-5",
+    href: "/collection/immateria",
   },
   {
     title: "Terrarium",
     artist: "Durk van der Meer",
+    year: "2019",
     description: "A chamber-sized ecosystem where scale, architecture, and atmosphere all drift out of the ordinary.",
     video: "/images/gifs/vandermeer-terrarium.mp4",
-    href: "/collection",
-    span: "lg:col-span-4",
+    href: "/collection/terrarium",
   },
   {
     title: "Alex's Sci-Fi World",
-    artist: "Nick Ladd",
+    artist: "Matt Schaefer",
+    year: "2018",
     description: "Hand-drawn world-building that turns animated illustration into someplace you can inhabit.",
     video: "/images/gifs/ladd-alexs-scifi-world.mp4",
-    href: "/artists",
-    span: "lg:col-span-4",
+    href: "/collection/alexs-sci-fi-world",
   },
   {
-    title: "Blortasia",
+    title: "Blort",
     artist: "Kevin Mack",
+    year: "2017",
     description: "Abstract VR sculpture and color fields with the scale and strangeness of a lucid dream.",
     video: "/images/gifs/kevin-mac-art-blort.mp4",
-    href: "/collection",
-    span: "lg:col-span-4",
+    href: "/collection/blort",
   },
 ];
 
+const heroSlides: HeroSlide[] = [
+  {
+    image: "/images/home/Hero-NightSnow.jpg",
+    alt: "Night Snow by Dani Bittman: a floating island of bare trees inside pale, curving museum architecture",
+    title: "Night Snow",
+    credit: "Dani Bittman, 2017",
+  },
+  {
+    image: "/images/home/gallery-community.jpg",
+    alt: "Coloured sculptural forms floating in a dark gallery of the museum",
+    title: "Gallery view",
+    credit: "Museum of Other Realities",
+  },
+];
+
+// `work` names the piece in the clip where we know it.
 const featuredArtists = [
   {
     name: "Dani Bittman",
     role: "Immersive design for Marvel, Google, Hyundai, and more",
     video: "/images/gifs/bittman-night-snow.mp4",
+    work: "Night Snow, 2017",
   },
   {
     name: "Isaac Cohen",
@@ -66,6 +79,7 @@ const featuredArtists = [
     name: "Ana Duncan",
     role: "Fashion-forward world building shaped by retro sci-fi and illustration",
     video: "/images/gifs/tilt-couture.mp4",
+    work: "Tilt Couture",
   },
   {
     name: "Sutu",
@@ -76,11 +90,28 @@ const featuredArtists = [
     name: "Kris Pilcher",
     role: "Installation-scale XR work that pushes color, space, and spectacle",
     video: "/images/gifs/tesseract.mp4",
+    work: "Quantum Tesseract, 2020",
   },
   {
     name: "Sean Tann",
     role: "Chromatic environments built for wonder and spatial play",
     video: "/images/gifs/sean-tann-chromawave-better.mp4",
+    work: "Chroma Wave, 2017",
+  },
+];
+
+const pillars = [
+  {
+    title: "Open access",
+    body: "The paywall is gone, opening the museum to more visitors thanks to early supporters and the community that helped build it.",
+  },
+  {
+    title: "Seen together",
+    body: "Wander the museum with friends, meet artists, and treat immersive art like a shared event rather than a static gallery wall.",
+  },
+  {
+    title: "An evolving programme",
+    body: "Festival collaborations, artist spotlights, and regularly refreshed exhibitions keep the museum alive.",
   },
 ];
 
@@ -123,12 +154,22 @@ const partners = [
   {
     name: "Kaleidoscope",
     image: "/images/logo/Kaleidoscope_logo.png",
-    className: "h-8 md:h-10",
+    className: "h-7 md:h-8",
   },
   {
     name: "VIFF",
     image: "/images/logo/VIFF_Logo_WEB.png",
-    className: "h-8 md:h-10 invert",
+    className: "h-7 md:h-8 invert",
+  },
+  {
+    name: "National Film Board of Canada",
+    image: "/images/logo/NFB_Logo_white.svg",
+    className: "h-8 md:h-10",
+  },
+  {
+    name: "Canada Media Fund",
+    image: "/images/logo/CMF_Logo_white.png",
+    className: "h-9 md:h-11",
   },
 ];
 
@@ -158,286 +199,188 @@ export const metadata: Metadata = pageMetadata({
 
 export default function Home() {
   return (
-    <div className="relative w-full overflow-hidden bg-black text-white">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute left-1/2 top-0 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-white/10 blur-[180px]" />
-        <div className="absolute left-[-8rem] top-[34rem] h-[24rem] w-[24rem] rounded-full bg-white/5 blur-[160px]" />
-        <div className="absolute right-[-8rem] top-[62rem] h-[24rem] w-[24rem] rounded-full bg-white/5 blur-[160px]" />
-      </div>
-
-      <section className="relative -mt-16 flex min-h-[65vh] w-full items-center justify-center overflow-hidden bg-black" id="visit">
-        <div className="absolute inset-0 z-0">
-          <SafeImage
-            src="/images/home/Hero-NightSnow.jpg"
-            alt="Museum of Other Realities"
-            className="h-full w-full object-cover opacity-60"
-            loading="eager"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/42 via-black/54 to-black" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.14),transparent_34%)]" />
+    <div className="w-full bg-ground text-[17px] leading-relaxed text-ivory">
+      <HeroSlides slides={heroSlides}>
+        <h1 className="display text-[clamp(40px,5.6vw,80px)] leading-[1.02] !tracking-[-0.02em]">
+          Museum of
+          <br />
+          Other Realities
+        </h1>
+        <p className="max-w-[520px]">
+          A social VR art museum. Step inside the work, at a scale no screen can hold, with friends from anywhere.
+        </p>
+        <div className="flex flex-wrap items-center gap-x-7 gap-y-3">
+          <a href={steamUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
+            Visit free on Steam
+          </a>
+          <a href={trailerUrl} target="_blank" rel="noopener noreferrer" className="link-rule">
+            Watch the trailer
+          </a>
         </div>
+      </HeroSlides>
 
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col px-6 pb-14 pt-32 md:pt-36">
-          <div className="max-w-4xl">
-            <h1 className="max-w-3xl text-4xl font-light leading-[0.95] tracking-tight text-white sm:text-5xl lg:text-7xl">
-              Museum of
-              <br />
-              Other Realities
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/72 md:text-xl">
-              An immersive social VR art museum where you step inside paintings, drift through impossible architecture,
-              and experience exhibitions with friends from anywhere.
-            </p>
-
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <a
-                href={steamUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-white px-7 text-sm font-medium text-black transition-transform hover:-translate-y-0.5 hover:bg-white/90 sm:min-w-[210px]"
-              >
-                Visit Free on Steam
-              </a>
-              <a
-                href={trailerUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-white/20 bg-black/20 px-7 text-sm font-medium text-white backdrop-blur transition-colors hover:border-white/35 hover:bg-white/10 sm:min-w-[210px]"
-              >
-                Watch Trailer
-              </a>
-              <Link
-                href="/#artists"
-                className="hidden min-h-14 sm:inline-flex items-center justify-center gap-2 rounded-full border border-white/12 bg-white/5 px-7 text-sm font-medium text-white/80 transition-colors hover:border-white/25 hover:text-white sm:min-w-[210px]"
-              >
-                Explore Artists
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="exhibitions" className="mx-auto max-w-7xl px-6 pt-16 pb-10">
-        <div className="mb-12 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-3xl">
-            <p className="text-xs uppercase tracking-[0.3em] text-white/45">Living Exhibitions</p>
-            <h2 className="mt-4 text-3xl font-medium text-white md:text-5xl">A museum built for motion, scale, and surprise</h2>
-          </div>
-          <p className="max-w-xl text-sm leading-7 text-white/65">
-            Every piece in MOR is a space you can walk into, at a scale no screen can hold. Here are a few of the worlds
-            waiting inside.
-          </p>
-        </div>
-
-        <div className="grid gap-5 lg:grid-cols-12">
-          {featuredWorks.map((work, index) => (
-            <a
-              key={work.title}
-              href={work.href}
-              className={`group relative overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950 ${work.span}`}
-            >
-              <div className={`relative ${index === 0 ? "aspect-[16/11]" : "aspect-[4/3]"} overflow-hidden`}>
-                <LoopVideo
-                  src={work.video}
-                  alt={`${work.title} by ${work.artist}`}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
-              </div>
-              <div className="absolute inset-x-0 bottom-0 p-6">
-                <p className="text-xs uppercase tracking-[0.26em] text-white/50">{work.artist}</p>
-                <h3 className="mt-3 text-2xl font-medium text-white">{work.title}</h3>
-                <p className="mt-3 max-w-xl text-sm leading-7 text-white/72">{work.description}</p>
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-6 pb-8">
-        <div className="grid gap-4 md:grid-cols-3">
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
-            <p className="text-xs uppercase tracking-[0.28em] text-white/45">Open Access</p>
-            <p className="mt-3 text-sm leading-7 text-white/75">
-              The paywall is gone, opening the museum to more visitors thanks to early supporters and the community that helped build it.
-            </p>
-          </div>
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
-            <p className="text-xs uppercase tracking-[0.28em] text-white/45">Social VR</p>
-            <p className="mt-3 text-sm leading-7 text-white/75">
-              Wander the museum together, meet artists, and treat immersive art like a shared event rather than a static gallery wall.
-            </p>
-          </div>
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
-            <p className="text-xs uppercase tracking-[0.28em] text-white/45">Evolving Program</p>
-            <p className="mt-3 text-sm leading-7 text-white/75">
-              Festival collaborations, artist spotlights, and regularly refreshed exhibitions keep the museum alive.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section id="artists" className="mx-auto max-w-7xl px-6 py-24">
-        <div className="mb-12 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-white/45">Featured Artists</p>
-            <h2 className="mt-4 text-3xl font-medium text-white md:text-5xl">Artists shaping the museum</h2>
-          </div>
-          <Link
-            href="/artists"
-            className="inline-flex items-center rounded-full border border-white/12 px-5 py-3 text-sm text-white/80 transition-colors hover:border-white/25 hover:text-white"
-          >
-            View all artists
-          </Link>
-        </div>
-
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {featuredArtists.map((artist) => (
-            <Link
-              key={artist.name}
-              href="/artists"
-              className="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.03]"
-            >
-              <div className="aspect-[5/4] overflow-hidden">
-                <LoopVideo
-                  src={artist.video}
-                  alt={artist.name}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-medium text-white">{artist.name}</h3>
-                <p className="mt-3 text-sm leading-7 text-white/68">{artist.role}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-6 py-24 text-center">
-        <p className="text-xs uppercase tracking-[0.3em] text-white/45">Press</p>
-        <h2 className="mt-4 text-3xl font-medium text-white md:text-5xl">What it feels like to walk inside</h2>
-
-        <div className="mt-14 grid gap-5 md:grid-cols-3">
-          {quotes.map((quote) => (
-            <blockquote
-              key={quote.source}
-              className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 text-left"
-            >
-              <p className="text-lg font-light leading-8 text-white/88">&ldquo;{quote.quote}&rdquo;</p>
-              <footer className="mt-6 text-xs uppercase tracking-[0.22em] text-white/45">{quote.source}</footer>
-            </blockquote>
-          ))}
-        </div>
-      </section>
-
-      <section className="relative z-10 mx-auto max-w-7xl px-6 py-24">
-        <div className="grid gap-10 lg:grid-cols-[1.25fr_0.9fr] lg:items-end">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-white/45">Why MOR Matters</p>
-            <p className="mt-5 max-w-4xl text-2xl font-light leading-[1.45] text-white/88 md:text-[2rem]">
-              MOR gives immersive art the kind of stage it deserves: not a menu of thumbnails, but a place where scale,
-              sound, architecture, and community can all work together.
-            </p>
-          </div>
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-7">
-            <p className="text-sm leading-8 text-white/68">
-              A community of creators, explorers, and artists, the museum connects people through new media from all over
-              the world. It is part exhibition space, part social venue, and part argument for what VR art can become.
-              The museum pays and promotes the artists it features.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-6 py-10">
-        <div className="grid overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] md:grid-cols-[1.05fr_0.95fr]">
-          <div className="relative min-h-[22rem] overflow-hidden">
-            <SafeImage
-              src="/images/home/gallery-community.jpg"
-              alt="Visitors inside the Museum of Other Realities"
-              className="h-full w-full object-cover opacity-82"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/12 via-transparent to-black/70 md:bg-gradient-to-r" />
-          </div>
-          <div className="flex flex-col justify-center p-8 md:p-10">
-            <p className="text-xs uppercase tracking-[0.3em] text-white/45">Keep MOR Free</p>
-            <h2 className="mt-4 text-3xl font-medium leading-tight text-white md:text-4xl">
-              Patrons fund access for everyone.
-            </h2>
-            <p className="mt-5 text-sm leading-7 text-white/70">
-              The paywall is gone, and MOR stays open thanks to the people who supported it early. Patreon covers the
-              fixed costs behind an open museum: multiplayer servers, Unity updates, Steam hosting, archiving, and the
-              care needed to keep VR art available without a ticket at the door.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/support"
-                className="inline-flex min-h-12 items-center justify-center rounded-full bg-white px-6 text-sm font-medium text-black transition-transform hover:-translate-y-0.5 hover:bg-white/90"
-              >
-                Become a Patron
-              </Link>
-              <Link
-                href="/blog/the-museum-of-other-realities-is-free-to-visit"
-                className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/15 bg-black/20 px-6 text-sm font-medium text-white transition-colors hover:border-white/30 hover:bg-white/5"
-              >
-                Read the Open Access Story
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-6 py-20 text-center">
-        <p className="text-xs uppercase tracking-[0.3em] text-white/45">Collaborators</p>
-        <h2 className="mt-4 text-3xl font-medium text-white">Festival and cultural partners</h2>
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-8 md:gap-12">
+      {/* The hero image fades into the page ground; the organisations the
+          museum has worked with sit in the quiet space that follows. */}
+      <section
+        aria-label="Festivals and partners"
+        className="shell flex flex-col items-center gap-9 pb-[clamp(24px,3vw,40px)] pt-[clamp(56px,7vw,104px)]"
+      >
+        <p className="eyebrow text-center">Festivals and partners over the years</p>
+        <ul className="flex max-w-[640px] flex-wrap items-center justify-center gap-x-[clamp(32px,3vw,44px)] gap-y-8 xl:max-w-none">
           {partners.map((partner) => (
-            <SafeImage
-              key={partner.name}
-              src={partner.image}
-              alt={partner.name}
-              className={`${partner.className} w-auto opacity-70 transition-opacity hover:opacity-100`}
-            />
+            <li key={partner.name}>
+              <SafeImage
+                src={partner.image}
+                alt={partner.name}
+                className={`${partner.className} w-auto opacity-60 transition-opacity duration-300 hover:opacity-100`}
+              />
+            </li>
           ))}
+        </ul>
+      </section>
+
+      <section id="exhibitions" className="shell section-y">
+        <div className="mb-12 flex flex-wrap items-end justify-between gap-x-12 gap-y-4">
+          <div className="flex flex-col gap-3.5">
+            <p className="eyebrow">On view</p>
+            <h2 className="display text-[clamp(34px,4vw,56px)] leading-[1.05]">Worlds waiting inside</h2>
+          </div>
+          <Link href="/collection" className="link-rule">
+            Browse the full collection
+          </Link>
+        </div>
+        <OnView works={onViewWorks} />
+      </section>
+
+      <section aria-label="About the museum" className="border-t border-rule">
+        <div className="shell section-y flex flex-col gap-[clamp(48px,6vw,72px)]">
+          <div className="flex flex-wrap gap-x-[72px] gap-y-8">
+            <h2 className="display min-w-0 flex-[1_1_480px] text-[clamp(30px,3.4vw,48px)] leading-[1.12]">
+              Immersive art deserves a stage, not a menu of thumbnails: a place where scale, sound, architecture and
+              community work together.
+            </h2>
+            <div className="flex min-w-0 flex-[1_1_360px] flex-col gap-4 text-soft">
+              <p>
+                A community of creators, explorers and artists, the museum connects people through new media from all
+                over the world. It is part exhibition space, part social venue, and part argument for what VR art can
+                become.
+              </p>
+              <p>The museum pays and promotes the artists it features.</p>
+            </div>
+          </div>
+
+          <figure className="flex flex-col gap-3">
+            <div className="aspect-[21/9] overflow-hidden bg-well">
+              <SafeImage
+                src="/images/home/gallery-community.jpg"
+                alt="Coloured sculptural forms floating in a dark gallery of the museum"
+                className="settle h-full w-full object-cover"
+              />
+            </div>
+            <figcaption className="text-[13px] text-muted">Gallery view, Museum of Other Realities</figcaption>
+          </figure>
+
+          <div className="grid gap-x-12 gap-y-8 md:grid-cols-3">
+            {pillars.map((pillar) => (
+              <div key={pillar.title} className="flex flex-col gap-2 border-t border-brass pt-[18px]">
+                <h3 className="display text-[26px] leading-tight">{pillar.title}</h3>
+                <p className="text-[15px] text-muted">{pillar.body}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-24">
-        <div className="mb-12 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-white/45">From the Blog</p>
-            <h2 className="mt-4 text-3xl font-medium text-white md:text-5xl">Context around the work</h2>
-          </div>
-          <Link
-            href="/blog"
-            className="inline-flex items-center rounded-full border border-white/12 px-5 py-3 text-sm text-white/80 transition-colors hover:border-white/25 hover:text-white"
-          >
-            View all articles
-          </Link>
+      <section aria-label="Press" className="border-t border-rule">
+        <div className="section-y mx-auto flex w-full max-w-[1040px] flex-col gap-8 px-[clamp(20px,5vw,80px)]">
+          <p className="eyebrow">Press</p>
+          <PressQuotes quotes={quotes} />
         </div>
+      </section>
 
-        <div className="grid gap-6 md:grid-cols-3">
-          {blogPosts.slice(0, 3).map((post) => (
-            <Link
-              key={post.slug}
-              href={post.link}
-              className="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.03]"
-            >
-              <div className="aspect-[16/10] overflow-hidden bg-gray-800">
-                <SafeImage
-                  src={post.image}
-                  alt={post.title}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
-              <div className="p-6">
-                <p className="text-xs uppercase tracking-[0.22em] text-white/40">{post.date}</p>
-                <h3 className="mt-3 text-xl font-medium leading-8 text-white">{post.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-white/65">{post.snippet}</p>
-              </div>
+      <section id="artists" className="border-t border-rule">
+        <div className="shell section-y">
+          <div className="mb-12 flex flex-wrap items-end justify-between gap-x-12 gap-y-4">
+            <div className="flex flex-col gap-3.5">
+              <p className="eyebrow">Artists</p>
+              <h2 className="display text-[clamp(34px,4vw,56px)] leading-[1.05]">The people shaping the museum</h2>
+            </div>
+            <Link href="/artists" className="link-rule">
+              View all artists
             </Link>
-          ))}
+          </div>
+          <div className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+            {featuredArtists.map((artist) => (
+              <Link key={artist.name} href="/artists" className="group flex flex-col gap-1">
+                <div className="mb-2.5 aspect-video overflow-hidden bg-well">
+                  <LoopVideo
+                    src={artist.video}
+                    alt={artist.work ? `${artist.work.split(",")[0]} by ${artist.name}` : `Work by ${artist.name}`}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <h3 className="font-heading text-[28px] font-normal leading-[1.15] transition-colors group-hover:text-white">
+                  {artist.name}
+                </h3>
+                {artist.work && <p className="font-heading text-[17px] italic text-soft">{artist.work}</p>}
+                <p className="text-[15px] text-muted">{artist.role}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="support" className="border-t border-rule bg-panel">
+        <div className="shell section-y flex flex-col gap-16">
+          <div className="flex flex-wrap gap-x-[72px] gap-y-8">
+            <div className="flex min-w-0 flex-[1_1_420px] flex-col gap-3.5">
+              <p className="eyebrow">Keep MOR free</p>
+              <h2 className="display text-[clamp(34px,4vw,56px)] leading-[1.05]">Patrons fund access for everyone.</h2>
+            </div>
+            <div className="flex min-w-0 flex-[1_1_420px] flex-col gap-7">
+              <p className="text-soft">
+                Patreon covers the fixed costs behind an open museum: multiplayer servers, Unity updates, Steam
+                hosting, archiving, and the care needed to keep VR art available without a ticket at the door.
+              </p>
+              <div className="flex flex-wrap items-center gap-x-7 gap-y-3">
+                <Link href="/support" className="btn-primary">
+                  Become a patron
+                </Link>
+                <Link href="/blog/the-museum-of-other-realities-is-free-to-visit" className="link-rule">
+                  Read the open access story
+                </Link>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section id="journal" className="border-t border-rule">
+        <div className="shell section-y">
+          <div className="mb-12 flex flex-wrap items-end justify-between gap-x-12 gap-y-4">
+            <div className="flex flex-col gap-3.5">
+              <p className="eyebrow">Journal</p>
+              <h2 className="display text-[clamp(34px,4vw,56px)] leading-[1.05]">From the archive</h2>
+            </div>
+            <Link href="/blog" className="link-rule">
+              View all articles
+            </Link>
+          </div>
+          <div className="border-b border-rule">
+            {postsByDate.slice(0, 3).map((post) => (
+              <Link
+                key={post.slug}
+                href={post.link}
+                className="group flex flex-wrap items-baseline gap-x-10 gap-y-1 border-t border-rule py-[22px]"
+              >
+                <span className="w-[120px] text-[13px] uppercase tracking-[0.1em] text-muted">{post.date}</span>
+                <span className="flex-[1_1_320px] font-heading text-[clamp(24px,2.2vw,30px)] leading-tight transition-colors group-hover:text-white">
+                  {post.title}
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

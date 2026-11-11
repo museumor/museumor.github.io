@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import type { ArtWork } from '@/data/collection';
 import SafeImage from './SafeImage';
+import LoopClip from './LoopClip';
 
 const ALL = 'All';
 
@@ -47,7 +48,8 @@ function FilterRow({
 
 // Text index of the collection with year and tool filters. On wide screens,
 // hovering or focusing a row shows that work in a preview that stays in view;
-// on narrow screens each row carries its own thumbnail.
+// on narrow screens each row carries its own thumbnail. Works with a `clip`
+// show it moving in the list; the still is what their own page opens with.
 export default function CollectionIndex({ works }: { works: ArtWork[] }) {
   const [year, setYear] = useState(ALL);
   const [tool, setTool] = useState(ALL);
@@ -84,7 +86,11 @@ export default function CollectionIndex({ works }: { works: ArtWork[] }) {
                 }`}
               >
                 <span className="h-14 w-20 shrink-0 overflow-hidden bg-well lg:hidden">
-                  <SafeImage src={work.image} alt="" className="h-full w-full object-cover" />
+                  {work.clip ? (
+                    <LoopClip src={work.clip} poster={work.image} className="h-full w-full object-cover" />
+                  ) : (
+                    <SafeImage src={work.image} alt="" className="h-full w-full object-cover" />
+                  )}
                 </span>
                 <span className="flex min-w-0 flex-1 flex-col gap-x-4 lg:flex-row lg:items-baseline">
                   <span className="min-w-0 flex-1 font-heading text-[22px] leading-tight">{work.title}</span>
@@ -106,7 +112,17 @@ export default function CollectionIndex({ works }: { works: ArtWork[] }) {
           <figure className="sticky top-24 hidden w-[44%] shrink-0 flex-col gap-4 lg:flex">
             <div className="aspect-[4/3] overflow-hidden bg-well">
               {/* Keyed so the image element is replaced, not stretched, between works. */}
-              <SafeImage key={preview.slug} src={preview.image} alt={preview.title} className="h-full w-full object-cover" />
+              {preview.clip ? (
+                <LoopClip
+                  key={preview.slug}
+                  src={preview.clip}
+                  poster={preview.image}
+                  label={preview.title}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <SafeImage key={preview.slug} src={preview.image} alt={preview.title} className="h-full w-full object-cover" />
+              )}
             </div>
             <figcaption className="flex flex-col gap-0.5">
               <span className="font-heading text-[22px] italic leading-tight">{preview.title}</span>
